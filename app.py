@@ -181,7 +181,7 @@ st.markdown(
 
     .block-container {{
         max-width: 1160px;
-        padding-top: 1.1rem;
+        padding-top: 3.5rem;
         padding-bottom: 4rem;
     }}
 
@@ -330,7 +330,7 @@ st.markdown(
         .block-container {{
             padding-left: 1rem;
             padding-right: 1rem;
-            padding-top: 0.7rem;
+            padding-top: 2.5rem;
         }}
 
         .finance-icon {{
