@@ -9,7 +9,7 @@ import html
 
 st.set_page_config(
     page_title="Výdavky obce Rastislavice",
-    page_icon="🧾",
+    page_icon="€",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -64,6 +64,7 @@ def clean_invoice_number(value):
 
     try:
         return str(int(float(value)))
+
     except Exception:
         return str(value)
 
@@ -93,6 +94,7 @@ def load_data():
     ]
 
     if missing_columns:
+
         raise ValueError(
             "V Exceli chýbajú stĺpce: "
             + ", ".join(missing_columns)
@@ -144,6 +146,7 @@ def load_data():
 
 
 try:
+
     df = load_data()
 
 except Exception as error:
@@ -184,6 +187,23 @@ st.markdown(
 
     h1, h2, h3 {{
         color: {GREEN} !important;
+    }}
+
+    .finance-icon {{
+        width: 88px;
+        height: 88px;
+        border: 4px solid {GREEN};
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0.2rem auto 0.7rem auto;
+        color: {GREEN};
+        font-size: 3.3rem;
+        font-weight: 800;
+        line-height: 1;
+        font-family: Arial, sans-serif;
+        box-sizing: border-box;
     }}
 
     .main-title {{
@@ -228,16 +248,10 @@ st.markdown(
                 #FBFDF9,
                 {CREAM_DARK}
             );
-
         border: 1px solid {BORDER};
         border-radius: 18px;
-
-        padding:
-            1rem
-            1.15rem;
-
+        padding: 1rem 1.15rem;
         min-height: 115px;
-
         box-shadow:
             0 8px 22px rgba(47, 93, 80, 0.08),
             inset 0 1px 0 rgba(255,255,255,0.9);
@@ -274,7 +288,6 @@ st.markdown(
         border: 1px solid {BORDER};
         border-radius: 14px;
         margin-bottom: 0.55rem;
-
         box-shadow:
             0 3px 10px rgba(47,93,80,0.05);
     }}
@@ -286,22 +299,12 @@ st.markdown(
 
     .category-badge {{
         display: inline-block;
-
         background-color: {CREAM_DARK};
         color: {GREEN};
-
-        border:
-            1px solid
-            {BORDER};
-
+        border: 1px solid {BORDER};
         border-radius: 999px;
-
-        padding:
-            0.27rem
-            0.7rem;
-
+        padding: 0.27rem 0.7rem;
         margin-top: 0.4rem;
-
         font-size: 0.82rem;
         font-weight: 700;
     }}
@@ -312,7 +315,6 @@ st.markdown(
         font-size: 0.82rem;
         margin-top: 2.5rem;
         padding-top: 1rem;
-
         border-top:
             1px solid
             rgba(47,93,80,0.16);
@@ -329,6 +331,13 @@ st.markdown(
             padding-left: 1rem;
             padding-right: 1rem;
             padding-top: 0.7rem;
+        }}
+
+        .finance-icon {{
+            width: 72px;
+            height: 72px;
+            font-size: 2.7rem;
+            border-width: 3px;
         }}
 
         .main-title {{
@@ -352,120 +361,11 @@ st.markdown(
 
 
 # ============================================================
-# IKONA FAKTÚRY A FINANCIÍ
+# IKONA FINANCIÍ
 # ============================================================
 
 st.markdown(
-    f"""
-    <div style="
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        margin-top:0.2rem;
-        margin-bottom:0.6rem;
-    ">
-
-        <svg
-            width="110"
-            height="110"
-            viewBox="0 0 120 120"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="Faktúry a financie"
-        >
-
-            <path
-                d="M24 16
-                   H76
-                   C82 16 86 20 86 26
-                   V79
-                   H70
-                   L63 86
-                   L56 79
-                   L49 86
-                   L42 79
-                   L35 86
-                   L24 79
-                   Z"
-                stroke="{GREEN}"
-                stroke-width="5"
-                stroke-linejoin="round"
-            />
-
-            <line
-                x1="35"
-                y1="34"
-                x2="70"
-                y2="34"
-                stroke="{GREEN}"
-                stroke-width="5"
-                stroke-linecap="round"
-            />
-
-            <line
-                x1="35"
-                y1="47"
-                x2="61"
-                y2="47"
-                stroke="{GREEN}"
-                stroke-width="5"
-                stroke-linecap="round"
-            />
-
-            <line
-                x1="35"
-                y1="60"
-                x2="55"
-                y2="60"
-                stroke="{GREEN}"
-                stroke-width="5"
-                stroke-linecap="round"
-            />
-
-            <ellipse
-                cx="82"
-                cy="69"
-                rx="18"
-                ry="7"
-                stroke="{GREEN}"
-                stroke-width="5"
-            />
-
-            <path
-                d="M64 69
-                   V80
-                   C64 84 72 88 82 88
-                   C92 88 100 84 100 80
-                   V69"
-                stroke="{GREEN}"
-                stroke-width="5"
-            />
-
-            <circle
-                cx="91"
-                cy="91"
-                r="20"
-                fill="{BACKGROUND}"
-                stroke="{GREEN}"
-                stroke-width="5"
-            />
-
-            <text
-                x="91"
-                y="101"
-                text-anchor="middle"
-                font-size="28"
-                font-weight="700"
-                fill="{GREEN}"
-                font-family="Arial, sans-serif"
-            >
-                €
-            </text>
-
-        </svg>
-
-    </div>
-    """,
+    '<div class="finance-icon">€</div>',
     unsafe_allow_html=True
 )
 
