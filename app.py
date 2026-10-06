@@ -377,7 +377,7 @@ st.markdown(
         Prehľad faktúr zverejnených obcou Rastislavice
         v roku 2026.<br>
         Jednoducho si môžete pozrieť,
-        <b>za čo obec platí a komu smerujú verejné prostriedky.</b>
+        <b>za čo obec platí a kam smerujú verejné prostriedky.</b>
     </div>
     """,
     unsafe_allow_html=True
