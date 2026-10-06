@@ -21,7 +21,6 @@ st.set_page_config(
 
 BACKGROUND = "#E4EBDD"
 GREEN = "#2F5D50"
-GREEN_MEDIUM = "#50796B"
 CREAM = "#F7FAF4"
 CREAM_DARK = "#EDF3E9"
 BORDER = "#B8C9B4"
@@ -65,7 +64,6 @@ def clean_invoice_number(value):
 
     try:
         return str(int(float(value)))
-
     except Exception:
         return str(value)
 
@@ -95,7 +93,6 @@ def load_data():
     ]
 
     if missing_columns:
-
         raise ValueError(
             "V Exceli chýbajú stĺpce: "
             + ", ".join(missing_columns)
@@ -147,7 +144,6 @@ def load_data():
 
 
 try:
-
     df = load_data()
 
 except Exception as error:
@@ -232,10 +228,16 @@ st.markdown(
                 #FBFDF9,
                 {CREAM_DARK}
             );
+
         border: 1px solid {BORDER};
         border-radius: 18px;
-        padding: 1rem 1.15rem;
+
+        padding:
+            1rem
+            1.15rem;
+
         min-height: 115px;
+
         box-shadow:
             0 8px 22px rgba(47, 93, 80, 0.08),
             inset 0 1px 0 rgba(255,255,255,0.9);
@@ -272,6 +274,7 @@ st.markdown(
         border: 1px solid {BORDER};
         border-radius: 14px;
         margin-bottom: 0.55rem;
+
         box-shadow:
             0 3px 10px rgba(47,93,80,0.05);
     }}
@@ -283,12 +286,22 @@ st.markdown(
 
     .category-badge {{
         display: inline-block;
+
         background-color: {CREAM_DARK};
         color: {GREEN};
-        border: 1px solid {BORDER};
+
+        border:
+            1px solid
+            {BORDER};
+
         border-radius: 999px;
-        padding: 0.27rem 0.7rem;
+
+        padding:
+            0.27rem
+            0.7rem;
+
         margin-top: 0.4rem;
+
         font-size: 0.82rem;
         font-weight: 700;
     }}
@@ -299,6 +312,7 @@ st.markdown(
         font-size: 0.82rem;
         margin-top: 2.5rem;
         padding-top: 1rem;
+
         border-top:
             1px solid
             rgba(47,93,80,0.16);
@@ -350,9 +364,10 @@ st.markdown(
         margin-top:0.2rem;
         margin-bottom:0.6rem;
     ">
+
         <svg
-            width="105"
-            height="105"
+            width="110"
+            height="110"
             viewBox="0 0 120 120"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -448,6 +463,7 @@ st.markdown(
             </text>
 
         </svg>
+
     </div>
     """,
     unsafe_allow_html=True
@@ -507,14 +523,20 @@ with st.expander(
     )
 
 
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown(
+    "<br>",
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
 # HLAVNÉ ČÍSLA
 # ============================================================
 
-total_amount = df["Cena (EUR)"].sum()
+total_amount = (
+    df["Cena (EUR)"]
+    .sum()
+)
 
 invoice_count = len(df)
 
@@ -524,7 +546,9 @@ supplier_count = (
 )
 
 
-metric1, metric2, metric3 = st.columns(3)
+metric1, metric2, metric3 = (
+    st.columns(3)
+)
 
 
 with metric1:
@@ -551,7 +575,10 @@ with metric3:
     )
 
 
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown(
+    "<br>",
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -794,17 +821,21 @@ with filter_col3:
     selected_month_name = (
         st.selectbox(
             "Mesiac",
-            list(months.keys())
+            list(
+                months.keys()
+            )
         )
     )
 
 
-search_text = st.text_input(
-    "Vyhľadávanie",
-    placeholder=(
-        "Napr. Brantner, kosačka, energia, číslo faktúry..."
-    ),
-    icon=":material/search:"
+search_text = (
+    st.text_input(
+        "Vyhľadávanie",
+        placeholder=(
+            "Napr. Brantner, kosačka, energia, číslo faktúry..."
+        ),
+        icon=":material/search:"
+    )
 )
 
 
@@ -909,9 +940,11 @@ if search_text:
     )
 
 
-    filtered = filtered[
-        search_mask
-    ]
+    filtered = (
+        filtered[
+            search_mask
+        ]
+    )
 
 
 # ============================================================
@@ -919,12 +952,16 @@ if search_text:
 # ============================================================
 
 filtered_total = (
-    filtered["Cena (EUR)"]
+    filtered[
+        "Cena (EUR)"
+    ]
     .sum()
 )
 
 
-result_col1, result_col2 = st.columns(2)
+result_col1, result_col2 = (
+    st.columns(2)
+)
 
 
 with result_col1:
@@ -947,7 +984,10 @@ with result_col2:
     )
 
 
-st.markdown("<br>", unsafe_allow_html=True)
+st.markdown(
+    "<br>",
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -985,8 +1025,12 @@ else:
         ):
 
             date_text = (
-                row["Dátum zverejnenia"]
-                .strftime("%d.%m.%Y")
+                row[
+                    "Dátum zverejnenia"
+                ]
+                .strftime(
+                    "%d.%m.%Y"
+                )
             )
 
         else:
@@ -996,25 +1040,46 @@ else:
 
         price_text = (
             format_eur(
-                row["Cena (EUR)"]
+                row[
+                    "Cena (EUR)"
+                ]
             )
         )
 
 
         supplier_text = html.escape(
-            str(row["Dodávateľ"])
+            str(
+                row[
+                    "Dodávateľ"
+                ]
+            )
         )
+
 
         description_text = html.escape(
-            str(row["Popis plnenia"])
+            str(
+                row[
+                    "Popis plnenia"
+                ]
+            )
         )
+
 
         category_text = html.escape(
-            str(row["Kategória"])
+            str(
+                row[
+                    "Kategória"
+                ]
+            )
         )
 
+
         invoice_number = html.escape(
-            str(row["Číslo faktúry"])
+            str(
+                row[
+                    "Číslo faktúry"
+                ]
+            )
         )
 
 
@@ -1030,7 +1095,16 @@ else:
         ):
 
             st.markdown(
-                f'<div style="font-size:1.12rem;font-weight:750;color:{GREEN};margin-bottom:0.9rem;">{description_text}</div>',
+                f"""
+                <div style="
+                    font-size:1.12rem;
+                    font-weight:750;
+                    color:{GREEN};
+                    margin-bottom:0.9rem;
+                ">
+                    {description_text}
+                </div>
+                """,
                 unsafe_allow_html=True
             )
 
@@ -1043,31 +1117,40 @@ else:
             with detail_col1:
 
                 st.markdown(
-                    f"**Cena:** {price_text}"
+                    f"**Cena:** "
+                    f"{price_text}"
                 )
 
                 st.markdown(
-                    f"**Dodávateľ:** {supplier_text}"
+                    f"**Dodávateľ:** "
+                    f"{supplier_text}"
                 )
 
                 st.markdown(
-                    f"**Kategória:** {category_text}"
+                    f"**Kategória:** "
+                    f"{category_text}"
                 )
 
 
             with detail_col2:
 
                 st.markdown(
-                    f"**Dátum zverejnenia:** {date_text}"
+                    f"**Dátum zverejnenia:** "
+                    f"{date_text}"
                 )
 
                 st.markdown(
-                    f"**Číslo faktúry:** {invoice_number}"
+                    f"**Číslo faktúry:** "
+                    f"{invoice_number}"
                 )
 
 
             st.markdown(
-                f'<span class="category-badge">{category_text}</span>',
+                f"""
+                <span class="category-badge">
+                    {category_text}
+                </span>
+                """,
                 unsafe_allow_html=True
             )
 
