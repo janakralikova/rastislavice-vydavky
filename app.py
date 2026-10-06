@@ -202,7 +202,7 @@ st.markdown(
 
     .main-subtitle {{
         max-width: 720px;
-        margin: 0 auto 2rem auto;
+        margin: 0 auto 1.2rem auto;
         text-align: center;
         color: {MUTED};
         font-size: 1rem;
@@ -375,6 +375,39 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+
+# ============================================================
+# INFORMÁCIE O ÚDAJOCH – HORE
+# ============================================================
+
+with st.expander(
+    "O údajoch v aplikácii",
+    icon=":material/info:"
+):
+
+    st.markdown(
+        """
+        **Zdroj údajov:** faktúry zverejnené obcou Rastislavice.
+
+        Aplikácia slúži na jednoduchšie vyhľadávanie
+        a zobrazenie verejne dostupných údajov.
+
+        **Hodnota zverejnených faktúr nepredstavuje
+        automaticky aktuálne čerpanie rozpočtu obce.**
+
+        **Kategórie boli doplnené pre jednoduchšiu orientáciu občanov.
+        Nejde o oficiálnu ekonomickú klasifikáciu obce.
+        Zaradenie jednotlivých faktúr bolo vytvorené manuálne
+        a napriek snahe o čo najväčšiu presnosť sa môže vyskytnúť chyba.**
+
+        **Poznámka:** Faktúry s číslom začínajúcim
+        na rok 2025 boli zverejnené v roku 2026.
+        """
+    )
+
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -937,39 +970,6 @@ else:
                 f'<span class="category-badge">{category_text}</span>',
                 unsafe_allow_html=True
             )
-
-
-# ============================================================
-# INFORMÁCIE O ÚDAJOCH
-# ============================================================
-
-st.divider()
-
-
-with st.expander(
-    "O údajoch v aplikácii",
-    icon=":material/info:"
-):
-
-    st.markdown(
-        """
-        **Zdroj údajov:** faktúry zverejnené obcou Rastislavice.
-
-        Aplikácia slúži na jednoduchšie vyhľadávanie
-        a zobrazenie verejne dostupných údajov.
-
-        **Hodnota zverejnených faktúr nepredstavuje
-        automaticky aktuálne čerpanie rozpočtu obce.**
-
-        **Kategórie boli doplnené pre jednoduchšiu orientáciu občanov.
-        Nejde o oficiálnu ekonomickú klasifikáciu obce.
-        Zaradenie jednotlivých faktúr bolo vytvorené manuálne
-        a napriek snahe o čo najväčšiu presnosť sa môže vyskytnúť chyba.**
-
-        **Poznámka:** Faktúry s číslom začínajúcim
-        na rok 2025 boli zverejnené v roku 2026.
-        """
-    )
 
 
 # ============================================================
