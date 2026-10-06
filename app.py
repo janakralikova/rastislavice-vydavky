@@ -288,13 +288,6 @@ st.markdown(
         font-weight: 700;
     }}
 
-    .result-title {{
-        color: {MUTED};
-        font-size: 0.86rem;
-        font-weight: 600;
-        margin-bottom: 0.15rem;
-    }}
-
     .footer {{
         text-align: center;
         color: {MUTED};
@@ -960,8 +953,7 @@ with st.expander(
 
     st.markdown(
         """
-        **Zdroj údajov:** faktúry zverejnené
-        obcou Rastislavice.
+        **Zdroj údajov:** faktúry zverejnené obcou Rastislavice.
 
         Aplikácia slúži na jednoduchšie vyhľadávanie
         a zobrazenie verejne dostupných údajov.
@@ -969,9 +961,10 @@ with st.expander(
         **Hodnota zverejnených faktúr nepredstavuje
         automaticky aktuálne čerpanie rozpočtu obce.**
 
-        Kategórie boli vytvorené pre jednoduchšiu
-        orientáciu občanov a nepredstavujú ekonomickú
-        klasifikáciu rozpočtu.
+        **Kategórie boli doplnené pre jednoduchšiu orientáciu občanov.
+        Nejde o oficiálnu ekonomickú klasifikáciu obce.
+        Zaradenie jednotlivých faktúr bolo vytvorené manuálne
+        a napriek snahe o čo najväčšiu presnosť sa môže vyskytnúť chyba.**
 
         **Poznámka:** Faktúry s číslom začínajúcim
         na rok 2025 boli zverejnené v roku 2026.
