@@ -21,7 +21,6 @@ st.set_page_config(
 
 BACKGROUND = "#e5d6c2"
 BROWN = "#7b3f06"
-BROWN_MEDIUM = "#9b6535"
 CREAM = "#fffaf4"
 CREAM_DARK = "#f3e8da"
 BORDER = "#ccb18f"
@@ -34,14 +33,11 @@ MUTED = "#75675d"
 # ============================================================
 
 def format_eur(value):
-    """Slovenský formát: 12 345,67 €"""
 
     if pd.isna(value):
         return "—"
 
-    value = float(value)
-
-    formatted = f"{value:,.2f}"
+    formatted = f"{float(value):,.2f}"
 
     formatted = (
         formatted
@@ -165,7 +161,7 @@ except Exception as error:
 
 
 # ============================================================
-# VZHĽAD APLIKÁCIE
+# VZHĽAD
 # ============================================================
 
 st.markdown(
@@ -228,9 +224,6 @@ st.markdown(
         margin-bottom: 1rem;
     }}
 
-
-    /* METRIKY */
-
     [data-testid="stMetric"] {{
         background:
             linear-gradient(
@@ -238,16 +231,10 @@ st.markdown(
                 #fffdf9,
                 {CREAM_DARK}
             );
-
         border: 1px solid {BORDER};
         border-radius: 18px;
-
-        padding:
-            1.05rem
-            1.2rem;
-
-        min-height: 118px;
-
+        padding: 1rem 1.15rem;
+        min-height: 115px;
         box-shadow:
             0 8px 22px rgba(90, 54, 24, 0.08),
             inset 0 1px 0 rgba(255,255,255,0.9);
@@ -263,9 +250,6 @@ st.markdown(
         font-weight: 800;
     }}
 
-
-    /* FORMULÁRE */
-
     div[data-baseweb="select"] > div {{
         background-color: {CREAM} !important;
         border-color: {BORDER} !important;
@@ -278,15 +262,11 @@ st.markdown(
         border-radius: 12px !important;
     }}
 
-
-    /* EXPANDERY */
-
     [data-testid="stExpander"] {{
         background-color: rgba(255,250,244,0.94);
         border: 1px solid {BORDER};
         border-radius: 14px;
         margin-bottom: 0.55rem;
-
         box-shadow:
             0 3px 10px rgba(90,54,24,0.045);
     }}
@@ -296,62 +276,24 @@ st.markdown(
         font-weight: 600;
     }}
 
-
-    /* PREHĽAD FILTRA */
-
-    .filter-summary {{
-        background-color: {CREAM};
-        border: 1px solid {BORDER};
-        border-radius: 15px;
-
-        padding:
-            0.95rem
-            1.15rem;
-
-        margin:
-            1rem
-            0
-            1.3rem
-            0;
-
-        color: {TEXT};
-
-        box-shadow:
-            0 4px 12px rgba(90,54,24,0.05);
-    }}
-
-    .filter-number {{
-        color: {BROWN};
-        font-weight: 800;
-    }}
-
-
-    /* KATEGÓRIA PRI FAKTÚRE */
-
     .category-badge {{
         display: inline-block;
-
         background-color: {CREAM_DARK};
         color: {BROWN};
-
-        border:
-            1px solid
-            {BORDER};
-
+        border: 1px solid {BORDER};
         border-radius: 999px;
-
-        padding:
-            0.27rem
-            0.7rem;
-
+        padding: 0.27rem 0.7rem;
         margin-top: 0.4rem;
-
         font-size: 0.82rem;
         font-weight: 700;
     }}
 
-
-    /* PÄTIČKA */
+    .result-title {{
+        color: {MUTED};
+        font-size: 0.86rem;
+        font-weight: 600;
+        margin-bottom: 0.15rem;
+    }}
 
     .footer {{
         text-align: center;
@@ -359,18 +301,15 @@ st.markdown(
         font-size: 0.82rem;
         margin-top: 2.5rem;
         padding-top: 1rem;
-
         border-top:
             1px solid
             rgba(123,63,6,0.15);
     }}
 
-
     hr {{
         border-color:
             rgba(123,63,6,0.15);
     }}
-
 
     @media (max-width: 700px) {{
 
@@ -427,11 +366,7 @@ with logo_center:
 # ============================================================
 
 st.markdown(
-    """
-    <div class="main-title">
-        Výdavky obce Rastislavice
-    </div>
-    """,
+    '<div class="main-title">Výdavky obce Rastislavice</div>',
     unsafe_allow_html=True
 )
 
@@ -439,13 +374,10 @@ st.markdown(
 st.markdown(
     """
     <div class="main-subtitle">
-
         Prehľad faktúr zverejnených obcou Rastislavice
-        v roku 2026.
-
+        v roku 2026.<br>
         Jednoducho si môžete pozrieť,
         <b>za čo obec platí a komu smerujú verejné prostriedky.</b>
-
     </div>
     """,
     unsafe_allow_html=True
@@ -456,10 +388,7 @@ st.markdown(
 # HLAVNÉ ČÍSLA
 # ============================================================
 
-total_amount = (
-    df["Cena (EUR)"]
-    .sum()
-)
+total_amount = df["Cena (EUR)"].sum()
 
 invoice_count = len(df)
 
@@ -469,9 +398,7 @@ supplier_count = (
 )
 
 
-metric1, metric2, metric3 = (
-    st.columns(3)
-)
+metric1, metric2, metric3 = st.columns(3)
 
 
 with metric1:
@@ -498,22 +425,15 @@ with metric3:
     )
 
 
-st.markdown(
-    "<br>",
-    unsafe_allow_html=True
-)
+st.markdown("<br>", unsafe_allow_html=True)
 
 
 # ============================================================
-# NA ČO OBEC MÍŇA PROSTRIEDKY
+# KATEGÓRIE
 # ============================================================
 
 st.markdown(
-    """
-    <div class="section-title">
-        Na čo obec míňa prostriedky?
-    </div>
-    """,
+    '<div class="section-title">Na čo obec míňa prostriedky?</div>',
     unsafe_allow_html=True
 )
 
@@ -538,9 +458,6 @@ category_summary = (
     )
 )
 
-
-# Graf zostáva jednoduchý ako v pôvodnej verzii,
-# ale používa našu hnedú farbu.
 
 st.bar_chart(
     category_summary,
@@ -588,11 +505,7 @@ st.divider()
 # ============================================================
 
 st.markdown(
-    """
-    <div class="section-title">
-        Komu obec platila?
-    </div>
-    """,
+    '<div class="section-title">Komu obec platila?</div>',
     unsafe_allow_html=True
 )
 
@@ -670,11 +583,7 @@ st.divider()
 # ============================================================
 
 st.markdown(
-    """
-    <div class="section-title">
-        Nájdite konkrétnu faktúru
-    </div>
-    """,
+    '<div class="section-title">Nájdite konkrétnu faktúru</div>',
     unsafe_allow_html=True
 )
 
@@ -741,9 +650,7 @@ with filter_col2:
 with filter_col3:
 
     months = {
-
         "Všetky mesiace": None,
-
         "Január": 1,
         "Február": 2,
         "Marec": 3,
@@ -761,21 +668,17 @@ with filter_col3:
     selected_month_name = (
         st.selectbox(
             "Mesiac",
-            list(
-                months.keys()
-            )
+            list(months.keys())
         )
     )
 
 
-search_text = (
-    st.text_input(
-        "Vyhľadávanie",
-        placeholder=(
-            "Napr. Brantner, kosačka, energia, číslo faktúry..."
-        ),
-        icon=":material/search:"
-    )
+search_text = st.text_input(
+    "Vyhľadávanie",
+    placeholder=(
+        "Napr. Brantner, kosačka, energia, číslo faktúry..."
+    ),
+    icon=":material/search:"
 )
 
 
@@ -880,15 +783,13 @@ if search_text:
     )
 
 
-    filtered = (
-        filtered[
-            search_mask
-        ]
-    )
+    filtered = filtered[
+        search_mask
+    ]
 
 
 # ============================================================
-# SÚHRN VÝSLEDKU
+# SÚHRN VYHĽADÁVANIA
 # ============================================================
 
 filtered_total = (
@@ -897,28 +798,30 @@ filtered_total = (
 )
 
 
-st.markdown(
-    f"""
-    <div class="filter-summary">
+result_col1, result_col2 = st.columns(2)
 
-        <span class="filter-number">
-            {format_number(len(filtered))}
-        </span>
 
-        faktúr
+with result_col1:
 
-        &nbsp;&nbsp;•&nbsp;&nbsp;
+    st.metric(
+        "Nájdených faktúr",
+        format_number(
+            len(filtered)
+        )
+    )
 
-        hodnota vybraných faktúr:
 
-        <span class="filter-number">
-            {format_eur(filtered_total)}
-        </span>
+with result_col2:
 
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    st.metric(
+        "Hodnota vybraných faktúr",
+        format_eur(
+            filtered_total
+        )
+    )
+
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 
 # ============================================================
@@ -926,11 +829,7 @@ st.markdown(
 # ============================================================
 
 st.markdown(
-    """
-    <div class="section-title">
-        Prehľad faktúr
-    </div>
-    """,
+    '<div class="section-title">Prehľad faktúr</div>',
     unsafe_allow_html=True
 )
 
@@ -955,7 +854,6 @@ else:
 
     for _, row in filtered.iterrows():
 
-
         if pd.notna(
             row["Dátum zverejnenia"]
         ):
@@ -978,32 +876,24 @@ else:
 
 
         supplier_text = html.escape(
-            str(
-                row["Dodávateľ"]
-            )
+            str(row["Dodávateľ"])
         )
 
         description_text = html.escape(
-            str(
-                row["Popis plnenia"]
-            )
+            str(row["Popis plnenia"])
         )
 
         category_text = html.escape(
-            str(
-                row["Kategória"]
-            )
+            str(row["Kategória"])
         )
 
         invoice_number = html.escape(
-            str(
-                row["Číslo faktúry"]
-            )
+            str(row["Číslo faktúry"])
         )
 
 
         expander_title = (
-            f"{row['Dodávateľ']}  ·  "
+            f"{row['Dodávateľ']} · "
             f"{price_text}"
         )
 
@@ -1013,18 +903,8 @@ else:
             icon=":material/receipt_long:"
         ):
 
-
             st.markdown(
-                f"""
-                <div style="
-                    font-size:1.12rem;
-                    font-weight:750;
-                    color:{BROWN};
-                    margin-bottom:0.9rem;
-                ">
-                    {description_text}
-                </div>
-                """,
+                f'<div style="font-size:1.12rem;font-weight:750;color:{BROWN};margin-bottom:0.9rem;">{description_text}</div>',
                 unsafe_allow_html=True
             )
 
@@ -1061,11 +941,7 @@ else:
 
 
             st.markdown(
-                f"""
-                <span class="category-badge">
-                    {category_text}
-                </span>
-                """,
+                f'<span class="category-badge">{category_text}</span>',
                 unsafe_allow_html=True
             )
 
@@ -1110,8 +986,7 @@ with st.expander(
 st.markdown(
     """
     <div class="footer">
-        Prehľad verejne dostupných údajov
-        • Rastislavice 2026
+        Prehľad verejne dostupných údajov • Rastislavice 2026
     </div>
     """,
     unsafe_allow_html=True
