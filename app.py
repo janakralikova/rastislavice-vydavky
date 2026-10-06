@@ -9,7 +9,7 @@ import html
 
 st.set_page_config(
     page_title="Výdavky obce Rastislavice",
-    page_icon="📊",
+    page_icon="🧾",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
@@ -190,6 +190,14 @@ st.markdown(
         color: {GREEN} !important;
     }}
 
+    .top-icon {{
+        text-align: center;
+        font-size: 4rem;
+        line-height: 1;
+        margin-top: 0.2rem;
+        margin-bottom: 0.5rem;
+    }}
+
     .main-title {{
         text-align: center;
         color: {GREEN};
@@ -197,7 +205,7 @@ st.markdown(
         font-size: clamp(2rem, 5vw, 3rem);
         line-height: 1.1;
         letter-spacing: -0.035em;
-        margin-top: 0.3rem;
+        margin-top: 0.2rem;
         margin-bottom: 0.4rem;
     }}
 
@@ -317,6 +325,10 @@ st.markdown(
             padding-top: 0.7rem;
         }}
 
+        .top-icon {{
+            font-size: 3.2rem;
+        }}
+
         .main-title {{
             font-size: 2rem;
         }}
@@ -338,25 +350,13 @@ st.markdown(
 
 
 # ============================================================
-# LOGO
+# IKONA
 # ============================================================
 
-logo_left, logo_center, logo_right = st.columns(
-    [1, 1.3, 1]
+st.markdown(
+    '<div class="top-icon">🧾</div>',
+    unsafe_allow_html=True
 )
-
-with logo_center:
-
-    try:
-
-        st.image(
-            "logo.png",
-            width="stretch"
-        )
-
-    except Exception:
-
-        pass
 
 
 # ============================================================
@@ -383,7 +383,7 @@ st.markdown(
 
 
 # ============================================================
-# INFORMÁCIE O ÚDAJOCH – HORE
+# INFORMÁCIE O ÚDAJOCH
 # ============================================================
 
 with st.expander(
