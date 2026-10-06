@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.graph_objects as go
+import html
 
 
 # ============================================================
@@ -22,7 +22,6 @@ st.set_page_config(
 BACKGROUND = "#e5d6c2"
 BROWN = "#7b3f06"
 BROWN_MEDIUM = "#9b6535"
-BROWN_LIGHT = "#c49a6c"
 CREAM = "#fffaf4"
 CREAM_DARK = "#f3e8da"
 BORDER = "#ccb18f"
@@ -35,12 +34,14 @@ MUTED = "#75675d"
 # ============================================================
 
 def format_eur(value):
-    """Slovenský formát meny: 12 345,67 €"""
+    """Slovenský formát: 12 345,67 €"""
 
     if pd.isna(value):
         return "—"
 
-    formatted = f"{float(value):,.2f}"
+    value = float(value)
+
+    formatted = f"{value:,.2f}"
 
     formatted = (
         formatted
@@ -164,7 +165,7 @@ except Exception as error:
 
 
 # ============================================================
-# CSS
+# VZHĽAD APLIKÁCIE
 # ============================================================
 
 st.markdown(
@@ -173,18 +174,18 @@ st.markdown(
 
     .stApp {{
         background:
-            radial-gradient(
-                circle at top,
-                #efe4d5 0%,
-                {BACKGROUND} 48%,
-                #ddccb7 100%
+            linear-gradient(
+                180deg,
+                #eadfce 0%,
+                {BACKGROUND} 35%,
+                {BACKGROUND} 100%
             );
         color: {TEXT};
     }}
 
     .block-container {{
-        max-width: 1180px;
-        padding-top: 1.2rem;
+        max-width: 1160px;
+        padding-top: 1.1rem;
         padding-bottom: 4rem;
     }}
 
@@ -199,16 +200,16 @@ st.markdown(
         font-size: clamp(2rem, 5vw, 3rem);
         line-height: 1.1;
         letter-spacing: -0.035em;
-        margin-top: 0.2rem;
-        margin-bottom: 0.45rem;
+        margin-top: 0.3rem;
+        margin-bottom: 0.4rem;
     }}
 
     .main-subtitle {{
-        max-width: 760px;
-        margin: 0 auto 1.8rem auto;
+        max-width: 720px;
+        margin: 0 auto 2rem auto;
         text-align: center;
         color: {MUTED};
-        font-size: 1.02rem;
+        font-size: 1rem;
         line-height: 1.6;
     }}
 
@@ -217,14 +218,18 @@ st.markdown(
         font-size: 1.55rem;
         font-weight: 800;
         margin-top: 1rem;
-        margin-bottom: 0.15rem;
+        margin-bottom: 0.2rem;
     }}
 
     .section-description {{
         color: {MUTED};
         font-size: 0.95rem;
+        line-height: 1.5;
         margin-bottom: 1rem;
     }}
+
+
+    /* METRIKY */
 
     [data-testid="stMetric"] {{
         background:
@@ -233,13 +238,19 @@ st.markdown(
                 #fffdf9,
                 {CREAM_DARK}
             );
+
         border: 1px solid {BORDER};
         border-radius: 18px;
-        padding: 1.05rem 1.15rem;
+
+        padding:
+            1.05rem
+            1.2rem;
+
+        min-height: 118px;
+
         box-shadow:
-            0 8px 20px rgba(90, 54, 24, 0.08),
+            0 8px 22px rgba(90, 54, 24, 0.08),
             inset 0 1px 0 rgba(255,255,255,0.9);
-        min-height: 120px;
     }}
 
     [data-testid="stMetricLabel"] {{
@@ -251,6 +262,9 @@ st.markdown(
         color: {BROWN};
         font-weight: 800;
     }}
+
+
+    /* FORMULÁRE */
 
     div[data-baseweb="select"] > div {{
         background-color: {CREAM} !important;
@@ -264,52 +278,46 @@ st.markdown(
         border-radius: 12px !important;
     }}
 
-    input {{
-        color: {TEXT} !important;
-    }}
+
+    /* EXPANDERY */
 
     [data-testid="stExpander"] {{
-        background: rgba(255, 250, 244, 0.92);
+        background-color: rgba(255,250,244,0.94);
         border: 1px solid {BORDER};
         border-radius: 14px;
         margin-bottom: 0.55rem;
+
         box-shadow:
-            0 3px 10px rgba(90, 54, 24, 0.045);
-        overflow: hidden;
+            0 3px 10px rgba(90,54,24,0.045);
     }}
 
     [data-testid="stExpander"] summary {{
-        font-weight: 600;
         color: {TEXT};
+        font-weight: 600;
     }}
 
-    .info-box {{
-        background:
-            linear-gradient(
-                145deg,
-                {CREAM_DARK},
-                #ead9c5
-            );
-        border: 1px solid {BORDER};
-        border-left: 5px solid {BROWN};
-        padding: 1.2rem 1.35rem;
-        border-radius: 14px;
-        color: {TEXT};
-        line-height: 1.6;
-        margin-top: 1.2rem;
-        box-shadow:
-            0 5px 14px rgba(90, 54, 24, 0.06);
-    }}
+
+    /* PREHĽAD FILTRA */
 
     .filter-summary {{
-        background: {CREAM};
+        background-color: {CREAM};
         border: 1px solid {BORDER};
         border-radius: 15px;
-        padding: 0.9rem 1.1rem;
-        margin: 1rem 0 1.15rem 0;
+
+        padding:
+            0.95rem
+            1.15rem;
+
+        margin:
+            1rem
+            0
+            1.3rem
+            0;
+
         color: {TEXT};
+
         box-shadow:
-            0 4px 12px rgba(90, 54, 24, 0.05);
+            0 4px 12px rgba(90,54,24,0.05);
     }}
 
     .filter-number {{
@@ -317,28 +325,59 @@ st.markdown(
         font-weight: 800;
     }}
 
+
+    /* KATEGÓRIA PRI FAKTÚRE */
+
     .category-badge {{
         display: inline-block;
+
         background-color: {CREAM_DARK};
         color: {BROWN};
-        border: 1px solid {BORDER};
+
+        border:
+            1px solid
+            {BORDER};
+
         border-radius: 999px;
-        padding: 0.26rem 0.7rem;
+
+        padding:
+            0.27rem
+            0.7rem;
+
+        margin-top: 0.4rem;
+
         font-size: 0.82rem;
         font-weight: 700;
-        margin-top: 0.25rem;
     }}
 
-    hr {{
-        border-color: rgba(123, 63, 6, 0.15);
+
+    /* PÄTIČKA */
+
+    .footer {{
+        text-align: center;
+        color: {MUTED};
+        font-size: 0.82rem;
+        margin-top: 2.5rem;
+        padding-top: 1rem;
+
+        border-top:
+            1px solid
+            rgba(123,63,6,0.15);
     }}
+
+
+    hr {{
+        border-color:
+            rgba(123,63,6,0.15);
+    }}
+
 
     @media (max-width: 700px) {{
 
         .block-container {{
             padding-left: 1rem;
             padding-right: 1rem;
-            padding-top: 0.8rem;
+            padding-top: 0.7rem;
         }}
 
         .main-title {{
@@ -366,7 +405,7 @@ st.markdown(
 # ============================================================
 
 logo_left, logo_center, logo_right = st.columns(
-    [1, 1.25, 1]
+    [1, 1.3, 1]
 )
 
 with logo_center:
@@ -375,10 +414,11 @@ with logo_center:
 
         st.image(
             "logo.png",
-            use_container_width=True
+            width="stretch"
         )
 
     except Exception:
+
         pass
 
 
@@ -395,13 +435,17 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+
 st.markdown(
     """
     <div class="main-subtitle">
-        Jednoduchý a prehľadný pohľad na faktúry
-        zverejnené obcou Rastislavice v roku 2026.
-        Pozrite sa, za čo obec platí a komu smerujú
-        verejné prostriedky.
+
+        Prehľad faktúr zverejnených obcou Rastislavice
+        v roku 2026.
+
+        Jednoducho si môžete pozrieť,
+        <b>za čo obec platí a komu smerujú verejné prostriedky.</b>
+
     </div>
     """,
     unsafe_allow_html=True
@@ -409,10 +453,13 @@ st.markdown(
 
 
 # ============================================================
-# ZÁKLADNÉ ČÍSLA
+# HLAVNÉ ČÍSLA
 # ============================================================
 
-total_amount = df["Cena (EUR)"].sum()
+total_amount = (
+    df["Cena (EUR)"]
+    .sum()
+)
 
 invoice_count = len(df)
 
@@ -422,7 +469,9 @@ supplier_count = (
 )
 
 
-metric1, metric2, metric3 = st.columns(3)
+metric1, metric2, metric3 = (
+    st.columns(3)
+)
 
 
 with metric1:
@@ -456,283 +505,7 @@ st.markdown(
 
 
 # ============================================================
-# FUNKCIA PRE 3D GRAF
-# ============================================================
-
-def create_3d_bar_chart(
-    data,
-    max_items=10,
-    height=560
-):
-
-    if max_items:
-
-        data = data.head(max_items)
-
-    data = data.sort_values(
-        ascending=False
-    )
-
-    labels = list(
-        data.index
-    )
-
-    values = list(
-        data.values
-    )
-
-    if not values:
-
-        return go.Figure()
-
-
-    brown_palette = [
-        "#6b3505",
-        "#75400d",
-        "#7f4a16",
-        "#89541f",
-        "#935e28",
-        "#9d6831",
-        "#a7723b",
-        "#b17c45",
-        "#bb8750",
-        "#c4915b"
-    ]
-
-
-    fig = go.Figure()
-
-    depth = 0.58
-
-    width = 0.64
-
-    max_value = max(values)
-
-
-    for i, (label, value) in enumerate(
-        zip(labels, values)
-    ):
-
-        x0 = i - width / 2
-        x1 = i + width / 2
-
-        y0 = 0
-        y1 = depth
-
-        z0 = 0
-        z1 = float(value)
-
-
-        x = [
-            x0, x1, x1, x0,
-            x0, x1, x1, x0
-        ]
-
-        y = [
-            y0, y0, y1, y1,
-            y0, y0, y1, y1
-        ]
-
-        z = [
-            z0, z0, z0, z0,
-            z1, z1, z1, z1
-        ]
-
-
-        I = [
-            0, 0,
-            4, 4,
-            0, 0,
-            1, 1,
-            2, 2,
-            3, 3
-        ]
-
-        J = [
-            1, 2,
-            5, 6,
-            1, 5,
-            2, 6,
-            3, 7,
-            0, 4
-        ]
-
-        K = [
-            2, 3,
-            6, 7,
-            5, 4,
-            6, 5,
-            7, 6,
-            4, 7
-        ]
-
-
-        color = brown_palette[
-            min(
-                i,
-                len(brown_palette) - 1
-            )
-        ]
-
-
-        fig.add_trace(
-            go.Mesh3d(
-                x=x,
-                y=y,
-                z=z,
-                i=I,
-                j=J,
-                k=K,
-                color=color,
-                opacity=0.96,
-                flatshading=True,
-                hovertemplate=(
-                    f"<b>{label}</b><br>"
-                    f"{format_eur(value)}"
-                    "<extra></extra>"
-                ),
-                name=str(label),
-                showscale=False,
-                showlegend=False
-            )
-        )
-
-
-        fig.add_trace(
-            go.Scatter3d(
-                x=[i],
-                y=[depth / 2],
-                z=[
-                    float(value)
-                    + max_value * 0.035
-                ],
-                mode="text",
-                text=[
-                    format_eur(value)
-                ],
-                textfont=dict(
-                    size=11,
-                    color=BROWN
-                ),
-                hoverinfo="skip",
-                showlegend=False
-            )
-        )
-
-
-    fig.update_layout(
-
-        height=height,
-
-        margin=dict(
-            l=0,
-            r=0,
-            b=0,
-            t=25
-        ),
-
-        paper_bgcolor="rgba(0,0,0,0)",
-
-        plot_bgcolor="rgba(0,0,0,0)",
-
-        scene=dict(
-
-            bgcolor="rgba(0,0,0,0)",
-
-            camera=dict(
-                eye=dict(
-                    x=1.55,
-                    y=-1.85,
-                    z=1.05
-                )
-            ),
-
-            xaxis=dict(
-
-                tickmode="array",
-
-                tickvals=list(
-                    range(
-                        len(labels)
-                    )
-                ),
-
-                ticktext=labels,
-
-                tickfont=dict(
-                    size=10,
-                    color=TEXT
-                ),
-
-                title=dict(
-                    text=""
-                ),
-
-                showgrid=False,
-
-                zeroline=False,
-
-                showbackground=False
-            ),
-
-            yaxis=dict(
-
-                visible=False,
-
-                showgrid=False,
-
-                zeroline=False,
-
-                showbackground=False
-            ),
-
-            zaxis=dict(
-
-                title=dict(
-                    text="EUR",
-                    font=dict(
-                        color=MUTED,
-                        size=12
-                    )
-                ),
-
-                tickfont=dict(
-                    color=MUTED,
-                    size=10
-                ),
-
-                gridcolor="rgba(123,63,6,0.10)",
-
-                zerolinecolor="rgba(123,63,6,0.25)",
-
-                showbackground=False,
-
-                separatethousands=True
-            ),
-
-            aspectmode="manual",
-
-            aspectratio=dict(
-                x=max(
-                    1.8,
-                    len(labels) * 0.34
-                ),
-                y=0.7,
-                z=1.55
-            )
-        ),
-
-        font=dict(
-            family="Arial",
-            color=TEXT
-        )
-    )
-
-    return fig
-
-
-# ============================================================
-# KATEGÓRIE
+# NA ČO OBEC MÍŇA PROSTRIEDKY
 # ============================================================
 
 st.markdown(
@@ -748,9 +521,8 @@ st.markdown(
 st.markdown(
     """
     <div class="section-description">
-        Prehľad zverejnených faktúr podľa kategórií.
-        Výška stĺpca predstavuje celkovú hodnotu faktúr
-        zaradených do danej kategórie.
+        Súhrnná hodnota zverejnených faktúr
+        podľa jednotlivých kategórií.
     </div>
     """,
     unsafe_allow_html=True
@@ -758,9 +530,8 @@ st.markdown(
 
 
 category_summary = (
-    df.groupby(
-        "Kategória"
-    )["Cena (EUR)"]
+    df
+    .groupby("Kategória")["Cena (EUR)"]
     .sum()
     .sort_values(
         ascending=False
@@ -768,19 +539,13 @@ category_summary = (
 )
 
 
-category_chart = create_3d_bar_chart(
+# Graf zostáva jednoduchý ako v pôvodnej verzii,
+# ale používa našu hnedú farbu.
+
+st.bar_chart(
     category_summary,
-    max_items=10,
-    height=570
-)
-
-
-st.plotly_chart(
-    category_chart,
-    use_container_width=True,
-    config={
-        "displayModeBar": False
-    }
+    color=BROWN,
+    height=430
 )
 
 
@@ -808,10 +573,9 @@ with st.expander(
         .apply(format_eur)
     )
 
-
     st.dataframe(
         category_table,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
@@ -845,9 +609,8 @@ st.markdown(
 
 
 supplier_summary = (
-    df.groupby(
-        "Dodávateľ"
-    )["Cena (EUR)"]
+    df
+    .groupby("Dodávateľ")["Cena (EUR)"]
     .sum()
     .sort_values(
         ascending=False
@@ -855,19 +618,16 @@ supplier_summary = (
 )
 
 
-supplier_chart = create_3d_bar_chart(
-    supplier_summary,
-    max_items=10,
-    height=570
+top_suppliers = (
+    supplier_summary
+    .head(10)
 )
 
 
-st.plotly_chart(
-    supplier_chart,
-    use_container_width=True,
-    config={
-        "displayModeBar": False
-    }
+st.bar_chart(
+    top_suppliers,
+    color=BROWN,
+    height=430
 )
 
 
@@ -877,8 +637,7 @@ with st.expander(
 ):
 
     supplier_table = (
-        supplier_summary
-        .head(10)
+        top_suppliers
         .reset_index()
     )
 
@@ -896,10 +655,9 @@ with st.expander(
         .apply(format_eur)
     )
 
-
     st.dataframe(
         supplier_table,
-        use_container_width=True,
+        width="stretch",
         hide_index=True
     )
 
@@ -924,8 +682,9 @@ st.markdown(
 st.markdown(
     """
     <div class="section-description">
-        Vyberte kategóriu, dodávateľa alebo mesiac.
-        Môžete tiež vyhľadávať podľa ľubovoľného slova.
+        Prehľad môžete filtrovať podľa kategórie,
+        dodávateľa alebo mesiaca.
+        Vyhľadávať môžete aj podľa ľubovoľného slova.
     </div>
     """,
     unsafe_allow_html=True
@@ -941,7 +700,8 @@ with filter_col1:
 
     categories = (
         ["Všetky kategórie"]
-        + sorted(
+        +
+        sorted(
             df["Kategória"]
             .dropna()
             .unique()
@@ -949,9 +709,11 @@ with filter_col1:
         )
     )
 
-    selected_category = st.selectbox(
-        "Kategória",
-        categories
+    selected_category = (
+        st.selectbox(
+            "Kategória",
+            categories
+        )
     )
 
 
@@ -959,7 +721,8 @@ with filter_col2:
 
     suppliers = (
         ["Všetci dodávatelia"]
-        + sorted(
+        +
+        sorted(
             df["Dodávateľ"]
             .dropna()
             .unique()
@@ -967,16 +730,20 @@ with filter_col2:
         )
     )
 
-    selected_supplier = st.selectbox(
-        "Dodávateľ",
-        suppliers
+    selected_supplier = (
+        st.selectbox(
+            "Dodávateľ",
+            suppliers
+        )
     )
 
 
 with filter_col3:
 
     months = {
+
         "Všetky mesiace": None,
+
         "Január": 1,
         "Február": 2,
         "Marec": 3,
@@ -991,20 +758,24 @@ with filter_col3:
         "December": 12
     }
 
-    selected_month_name = st.selectbox(
-        "Mesiac",
-        list(
-            months.keys()
+    selected_month_name = (
+        st.selectbox(
+            "Mesiac",
+            list(
+                months.keys()
+            )
         )
     )
 
 
-search_text = st.text_input(
-    "Vyhľadávanie",
-    placeholder=(
-        "Napr. Brantner, kosačka, energia, číslo faktúry..."
-    ),
-    icon=":material/search:"
+search_text = (
+    st.text_input(
+        "Vyhľadávanie",
+        placeholder=(
+            "Napr. Brantner, kosačka, energia, číslo faktúry..."
+        ),
+        icon=":material/search:"
+    )
 )
 
 
@@ -1031,9 +802,11 @@ if selected_supplier != "Všetci dodávatelia":
     ]
 
 
-selected_month = months[
-    selected_month_name
-]
+selected_month = (
+    months[
+        selected_month_name
+    ]
+)
 
 
 if selected_month is not None:
@@ -1107,19 +880,19 @@ if search_text:
     )
 
 
-    filtered = filtered[
-        search_mask
-    ]
+    filtered = (
+        filtered[
+            search_mask
+        ]
+    )
 
 
 # ============================================================
-# SÚHRN FILTRA
+# SÚHRN VÝSLEDKU
 # ============================================================
 
 filtered_total = (
-    filtered[
-        "Cena (EUR)"
-    ]
+    filtered["Cena (EUR)"]
     .sum()
 )
 
@@ -1149,7 +922,7 @@ st.markdown(
 
 
 # ============================================================
-# ZOZNAM FAKTÚR
+# PREHĽAD FAKTÚR
 # ============================================================
 
 st.markdown(
@@ -1171,9 +944,12 @@ if filtered.empty:
 
 else:
 
-    filtered = filtered.sort_values(
-        "Dátum zverejnenia",
-        ascending=False
+    filtered = (
+        filtered
+        .sort_values(
+            "Dátum zverejnenia",
+            ascending=False
+        )
     )
 
 
@@ -1194,8 +970,35 @@ else:
             date_text = "—"
 
 
-        price_text = format_eur(
-            row["Cena (EUR)"]
+        price_text = (
+            format_eur(
+                row["Cena (EUR)"]
+            )
+        )
+
+
+        supplier_text = html.escape(
+            str(
+                row["Dodávateľ"]
+            )
+        )
+
+        description_text = html.escape(
+            str(
+                row["Popis plnenia"]
+            )
+        )
+
+        category_text = html.escape(
+            str(
+                row["Kategória"]
+            )
+        )
+
+        invoice_number = html.escape(
+            str(
+                row["Číslo faktúry"]
+            )
         )
 
 
@@ -1214,12 +1017,12 @@ else:
             st.markdown(
                 f"""
                 <div style="
-                    font-size:1.15rem;
+                    font-size:1.12rem;
                     font-weight:750;
                     color:{BROWN};
-                    margin-bottom:0.8rem;
+                    margin-bottom:0.9rem;
                 ">
-                    {row["Popis plnenia"]}
+                    {description_text}
                 </div>
                 """,
                 unsafe_allow_html=True
@@ -1238,33 +1041,29 @@ else:
                 )
 
                 st.markdown(
-                    f"**Dodávateľ:** "
-                    f"{row['Dodávateľ']}"
+                    f"**Dodávateľ:** {supplier_text}"
                 )
 
                 st.markdown(
-                    f"**Kategória:** "
-                    f"{row['Kategória']}"
+                    f"**Kategória:** {category_text}"
                 )
 
 
             with detail_col2:
 
                 st.markdown(
-                    f"**Dátum zverejnenia:** "
-                    f"{date_text}"
+                    f"**Dátum zverejnenia:** {date_text}"
                 )
 
                 st.markdown(
-                    f"**Číslo faktúry:** "
-                    f"{row['Číslo faktúry']}"
+                    f"**Číslo faktúry:** {invoice_number}"
                 )
 
 
             st.markdown(
                 f"""
                 <span class="category-badge">
-                    {row["Kategória"]}
+                    {category_text}
                 </span>
                 """,
                 unsafe_allow_html=True
@@ -1309,15 +1108,8 @@ with st.expander(
 # ============================================================
 
 st.markdown(
-    f"""
-    <div style="
-        text-align:center;
-        color:{MUTED};
-        font-size:0.82rem;
-        margin-top:2.5rem;
-        padding-top:1rem;
-        border-top:1px solid rgba(123,63,6,0.12);
-    ">
+    """
+    <div class="footer">
         Prehľad verejne dostupných údajov
         • Rastislavice 2026
     </div>
