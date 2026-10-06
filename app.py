@@ -19,13 +19,14 @@ st.set_page_config(
 # FARBY
 # ============================================================
 
-BACKGROUND = "#e5d6c2"
-BROWN = "#7b3f06"
-CREAM = "#fffaf4"
-CREAM_DARK = "#f3e8da"
-BORDER = "#ccb18f"
-TEXT = "#4c3425"
-MUTED = "#75675d"
+BACKGROUND = "#E4EBDD"
+GREEN = "#2F5D50"
+GREEN_MEDIUM = "#50796B"
+CREAM = "#F7FAF4"
+CREAM_DARK = "#EDF3E9"
+BORDER = "#B8C9B4"
+TEXT = "#2E4038"
+MUTED = "#65746C"
 
 
 # ============================================================
@@ -172,8 +173,8 @@ st.markdown(
         background:
             linear-gradient(
                 180deg,
-                #eadfce 0%,
-                {BACKGROUND} 35%,
+                #EDF3E9 0%,
+                {BACKGROUND} 38%,
                 {BACKGROUND} 100%
             );
         color: {TEXT};
@@ -186,12 +187,12 @@ st.markdown(
     }}
 
     h1, h2, h3 {{
-        color: {BROWN} !important;
+        color: {GREEN} !important;
     }}
 
     .main-title {{
         text-align: center;
-        color: {BROWN};
+        color: {GREEN};
         font-weight: 800;
         font-size: clamp(2rem, 5vw, 3rem);
         line-height: 1.1;
@@ -210,7 +211,7 @@ st.markdown(
     }}
 
     .section-title {{
-        color: {BROWN};
+        color: {GREEN};
         font-size: 1.55rem;
         font-weight: 800;
         margin-top: 1rem;
@@ -228,7 +229,7 @@ st.markdown(
         background:
             linear-gradient(
                 145deg,
-                #fffdf9,
+                #FBFDF9,
                 {CREAM_DARK}
             );
         border: 1px solid {BORDER};
@@ -236,7 +237,7 @@ st.markdown(
         padding: 1rem 1.15rem;
         min-height: 115px;
         box-shadow:
-            0 8px 22px rgba(90, 54, 24, 0.08),
+            0 8px 22px rgba(47, 93, 80, 0.08),
             inset 0 1px 0 rgba(255,255,255,0.9);
     }}
 
@@ -246,7 +247,7 @@ st.markdown(
     }}
 
     [data-testid="stMetricValue"] {{
-        color: {BROWN};
+        color: {GREEN};
         font-weight: 800;
     }}
 
@@ -262,13 +263,17 @@ st.markdown(
         border-radius: 12px !important;
     }}
 
+    input {{
+        color: {TEXT} !important;
+    }}
+
     [data-testid="stExpander"] {{
-        background-color: rgba(255,250,244,0.94);
+        background-color: rgba(247,250,244,0.96);
         border: 1px solid {BORDER};
         border-radius: 14px;
         margin-bottom: 0.55rem;
         box-shadow:
-            0 3px 10px rgba(90,54,24,0.045);
+            0 3px 10px rgba(47,93,80,0.05);
     }}
 
     [data-testid="stExpander"] summary {{
@@ -279,7 +284,7 @@ st.markdown(
     .category-badge {{
         display: inline-block;
         background-color: {CREAM_DARK};
-        color: {BROWN};
+        color: {GREEN};
         border: 1px solid {BORDER};
         border-radius: 999px;
         padding: 0.27rem 0.7rem;
@@ -296,12 +301,12 @@ st.markdown(
         padding-top: 1rem;
         border-top:
             1px solid
-            rgba(123,63,6,0.15);
+            rgba(47,93,80,0.16);
     }}
 
     hr {{
         border-color:
-            rgba(123,63,6,0.15);
+            rgba(47,93,80,0.15);
     }}
 
     @media (max-width: 700px) {{
@@ -487,7 +492,7 @@ category_summary = (
 
 st.bar_chart(
     category_summary,
-    color=BROWN,
+    color=GREEN,
     height=430
 )
 
@@ -565,7 +570,7 @@ top_suppliers = (
 
 st.bar_chart(
     top_suppliers,
-    color=BROWN,
+    color=GREEN,
     height=430
 )
 
@@ -930,7 +935,7 @@ else:
         ):
 
             st.markdown(
-                f'<div style="font-size:1.12rem;font-weight:750;color:{BROWN};margin-bottom:0.9rem;">{description_text}</div>',
+                f'<div style="font-size:1.12rem;font-weight:750;color:{GREEN};margin-bottom:0.9rem;">{description_text}</div>',
                 unsafe_allow_html=True
             )
 
